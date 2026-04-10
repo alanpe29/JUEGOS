@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS Store - Digital Games</title>
+    <style>
+        :root {
+            --ps-blue: #003087;
+            --ps-light-blue: #0070d1;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --accent: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            background: radial-gradient(circle at top, #00439c 0%, #0a0a0a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--ps-light-blue);
+            margin-bottom: 30px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ps-light-blue);
+        }
+
+        .game-image {
+            width: 300px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .game-info {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .tag-platform {
+            background: var(--ps-light-blue);
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h2 { margin: 15px 0; font-size: 28px; }
+
+        .price {
+            font-size: 24px;
+            color: #2ecc71;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .details li { margin-bottom: 8px; }
+
+        /* Botón de compra / Revelar */
+        .btn-buy {
+            background: var(--ps-light-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .btn-buy:hover { background: #005bb5; }
+
+        /* Sección de entrega (oculta por defecto) */
+        #account-reveal {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #000;
+            border-left: 4px solid #2ecc71;
+            border-radius: 5px;
+        }
+
+        .rules {
+            font-size: 12px;
+            color: #ffaa00;
+            margin-top: 15px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>PLAYSTATION DIGITAL STORE</h1>
+    </header>
+
+    <div class="game-card">
+        <div class="game-image">
+            <!-- Imagen de referencia para FC 26 -->
+            <img src="https://via.placeholder.com/300x400/003087/ffffff?text=EA+SPORTS+FC+26" alt="EA SPORTS FC 26">
+        </div>
+        <div class="game-info">
+            <span class="tag-platform">PS4 / PS5</span>
+            <h2>EA SPORTS FC 26</h2>
+            <div class="price">$59.99</div>
+            
+            <ul class="details">
+                <li>✅ Idioma: Español Latino / Inglés</li>
+                <li>✅ Entrega: Inmediata</li>
+                <li>✅ Tipo: Cuenta Primaria (Juego en tu perfil)</li>
+            </ul>
+
+            <button class="btn-buy" onclick="revealGame()">ADQUIRIR JUEGO</button>
+
+            <div id="account-reveal">
+                <strong>📧 correo:</strong> <span id="user-display">carlos_gaming@mail.com</span><br>
+                <strong>🔑 contraseña:</strong> <span id="pass-display">Ps5Master2026!</span>
+                
+                <div class="rules">
+                    <strong>⚠️ REGLAS IMPORTANTES:</strong><br>
+                    1. No cambiar datos de la cuenta.<br>
+                    2. No compartir el acceso con otros dispositivos.<br>
+                    3. La garantía se anula si se intenta modificar el perfil.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function revealGame() {
+        const section = document.getElementById('account-reveal');
+        section.style.display = 'block';
+        alert("¡Compra procesada! Revisá los datos de acceso debajo.");
+    }
+</script>
+
+</body>
+</html>
