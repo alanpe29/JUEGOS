@@ -47,6 +47,7 @@
             transition: transform 0.3s, border-color 0.3s;
             border: 2px solid transparent;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .game-card-small:hover {
@@ -54,16 +55,19 @@
             border-color: var(--ps-light-blue);
         }
 
+        /* Ajuste para que la imagen horizontal encaje en el cuadro vertical */
         .game-card-small img {
             width: 100%;
-            height: auto;
+            height: 230px; /* Altura fija para mantener uniformidad */
+            object-fit: cover; /* Recorta los bordes para que no se estire */
             display: block;
         }
 
         .game-title {
-            padding: 10px;
+            padding: 12px;
             font-size: 14px;
             font-weight: bold;
+            background: rgba(0,0,0,0.6);
         }
 
         /* Modal / Ventana de opciones */
@@ -79,7 +83,7 @@
             border: 2px solid var(--ps-light-blue);
             z-index: 1000;
             width: 300px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
         }
 
         .overlay {
@@ -98,39 +102,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid #333;
         }
 
-        .price-tag { color: #2ecc71; font-weight: bold; }
-        .no-stock { color: #e74c3c; font-weight: bold; font-size: 12px; }
+        .price-tag { color: #2ecc71; font-weight: bold; font-size: 18px; }
+        .no-stock { color: #e74c3c; font-weight: bold; font-size: 12px; text-transform: uppercase; }
 
         .btn-close {
-            background: none;
-            border: 1px solid white;
+            background: var(--ps-light-blue);
+            border: none;
             color: white;
             cursor: pointer;
             width: 100%;
             margin-top: 15px;
-            padding: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>CATÁLOGO PS4 / PS5</h1>
+    <h1>PLAYSTATION DIGITAL STORE</h1>
 </header>
 
 <div class="games-grid">
+    <!-- JUEGO: EA SPORTS FC 26 -->
     <div class="game-card-small" onclick="openOptions('fc26')">
-        <img src="https://via.placeholder.com/180x220/003087/ffffff?text=FC+26" alt="EA SPORTS FC 26">
+        <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000091347/a4ce113ce08d7c7a94e50dc5104ea74a90fcb3c7d6b465fb8a1524b3df012e09" alt="EA SPORTS FC 26">
         <div class="game-title">EA SPORTS FC 26</div>
     </div>
 
-    </div>
+    <!-- Acá podés ir agregando más juegos siguiendo el mismo formato -->
+</div>
 
+<!-- Estructura del Modal -->
 <div id="overlay" class="overlay" onclick="closeOptions()"></div>
 <div id="modal" class="modal">
-    <h3 id="modal-title">Selecciona el tipo de cuenta</h3>
+    <h3 id="modal-title" style="margin-top:0; color: var(--ps-light-blue);">Selecciona el tipo de cuenta</h3>
     
     <div class="option-box">
         <span>Primaria</span>
@@ -142,7 +152,7 @@
         <span id="price-secundaria" class="no-stock">SIN STOCK</span>
     </div>
 
-    <button class="btn-close" onclick="closeOptions()">Cerrar</button>
+    <button class="btn-close" onclick="closeOptions()">VOLVER</button>
 </div>
 
 <script>
@@ -154,18 +164,12 @@
             document.getElementById('modal-title').innerText = "EA SPORTS FC 26";
             document.getElementById('price-primaria').innerText = "$35.000";
             document.getElementById('price-secundaria').innerText = "SIN STOCK";
-            document.getElementById('price-secundaria').className = "no-stock";
         }
     }
 
     function closeOptions() {
         document.getElementById('modal').style.display = 'none';
         document.getElementById('overlay').style.display = 'none';
-    }
-</script>
-
-</body>
-</html>
     }
 </script>
 
