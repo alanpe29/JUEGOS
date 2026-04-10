@@ -13,6 +13,7 @@
             --card-bg: #12161e;
             --aln-accent: #ff4081;
             --mp-blue: #009ee3;
+            --warning: #f1c40f;
         }
 
         body {
@@ -24,10 +25,9 @@
             min-height: 100vh;
         }
 
-        /* TÍTULO ANIMADO */
-        header { text-align: center; padding: 30px 0; }
+        header { text-align: center; padding: 20px 0; }
         .animated-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
             background: linear-gradient(90deg, #0070d1, #ff4081, #9c27b0, #0070d1);
             background-size: 300%;
@@ -35,75 +35,31 @@
             -webkit-text-fill-color: transparent;
             animation: moveGradient 5s linear infinite;
         }
-
         @keyframes moveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        /* GRILLA */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .game-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--ps-light-blue);
-            box-shadow: 0 0 20px rgba(0, 112, 209, 0.5);
-        }
-
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .game-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
+        .game-card:hover { transform: translateY(-10px); border-color: var(--ps-light-blue); box-shadow: 0 0 20px rgba(0, 112, 209, 0.5); }
         .game-card img { width: 100%; height: 250px; object-fit: cover; }
         .game-title { padding: 10px; font-size: 14px; text-align: center; font-weight: bold; }
 
-        /* MODALES */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; }
-        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #080808; padding: 25px; border-radius: 15px; border: 2px solid var(--ps-light-blue); z-index: 1000; width: 90%; max-width: 400px; text-align: center; }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #080808; padding: 25px; border-radius: 15px; border: 2px solid var(--ps-light-blue); z-index: 1000; width: 90%; max-width: 450px; text-align: center; max-height: 85vh; overflow-y: auto; }
 
         .option-btn { background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 15px; margin: 10px 0; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .option-btn:hover:not(:disabled) { background: var(--ps-light-blue); }
+        .option-btn:hover { background: var(--ps-light-blue); }
         
+        .btn-guide { background: var(--ps-purple); color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; margin-bottom: 10px; cursor: pointer; }
+        .btn-whatsapp { background: #25d366; color: black; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 900; margin-top: 10px; cursor: pointer; }
+
+        .guide-text { text-align: left; font-size: 13px; line-height: 1.4; color: #ddd; }
+        .norms { background: rgba(231, 76, 60, 0.1); border: 1px solid #e74c3c; padding: 10px; border-radius: 8px; margin-top: 10px; }
         .price { color: #2ecc71; font-size: 18px; }
-        .no-stock { color: #e74c3c; font-size: 12px; }
-
-        /* SECCIÓN PAGO */
-        .payment-box {
-            background: #111;
-            border: 1px solid var(--mp-blue);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: black;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
-            font-weight: 900;
-            margin-top: 15px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        /* TABLA COMPARATIVA */
-        .diff-table { width: 100%; font-size: 12px; border-collapse: collapse; margin: 15px 0; color: #ccc; }
-        .diff-table th { color: var(--ps-light-blue); padding: 5px; border-bottom: 1px solid #333; }
-        .diff-table td { padding: 8px; border-bottom: 1px solid #222; }
-
         .btn-back { background: none; border: 1px solid #444; color: #aaa; margin-top: 10px; padding: 8px; width: 100%; cursor: pointer; border-radius: 5px; }
+
+        /* Scrollbar styling */
+        .modal::-webkit-scrollbar { width: 5px; }
+        .modal::-webkit-scrollbar-thumb { background: var(--ps-light-blue); border-radius: 10px; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
@@ -118,7 +74,6 @@
             <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000091347/a4ce113ce08d7c7a94e50dc5104ea74a90fcb3c7d6b465fb8a1524b3df012e09" alt="FC 26">
             <div class="game-title">EA SPORTS FC 26</div>
         </div>
-
         <div class="game-card" onclick="openStep1('Resident Evil 2 Remake', 15000)">
             <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png" alt="RE2 Remake">
             <div class="game-title">RESIDENT EVIL 2 REMAKE</div>
@@ -136,45 +91,42 @@
         <button class="btn-back" onclick="closeAll()">CERRAR</button>
     </div>
 
-    <!-- PASO 2: TIPO DE CUENTA + TABLA -->
-    <div id="modal-step2" class="modal" style="max-width: 450px;">
+    <!-- PASO 2: TIPO DE CUENTA -->
+    <div id="modal-step2" class="modal">
         <h2 id="title-s2" style="color: var(--ps-light-blue);">Elegí tu versión</h2>
-        
-        <table class="diff-table">
-            <tr><th>Característica</th><th>Primaria</th><th>Secundaria</th></tr>
-            <tr><td>¿Tu usuario?</td><td>✅ SÍ</td><td>❌ NO</td></tr>
-            <tr><td>¿Trofeos?</td><td>✅ SÍ</td><td>❌ NO</td></tr>
-            <tr><td>¿Internet?</td><td>❌ NO</td><td>✅ SIEMPRE</td></tr>
-        </table>
-
         <button class="option-btn" onclick="openCheckout('Primaria')">
             <span>Cuenta Primaria</span>
             <span class="price" id="txt-primaria"></span>
         </button>
-        
-        <button class="option-btn" style="border-style: dashed; opacity: 0.6;" disabled>
+        <button class="option-btn" style="opacity: 0.5;" disabled>
             <span>Cuenta Secundaria</span>
-            <span class="no-stock">SIN STOCK</span>
+            <span style="color:red">SIN STOCK</span>
         </button>
-
         <button class="btn-back" onclick="backToStep1()">VOLVER</button>
     </div>
 
-    <!-- PASO 3: PAGO (CHECKOUT) -->
+    <!-- PASO 3: PAGO Y GUÍA -->
     <div id="modal-checkout" class="modal">
-        <h2 style="color: var(--mp-blue);">DATOS DE PAGO</h2>
-        <p id="summary-text" style="font-size: 14px;"></p>
+        <h2 style="color: var(--mp-blue);">CHECKOUT</h2>
+        <button class="btn-guide" onclick="openGuide()">📖 GUÍA DE INSTALACIÓN</button>
         
-        <div class="payment-box">
-            <p style="margin: 5px 0; font-weight: bold; color: var(--mp-blue);">Mercado Pago</p>
-            <p style="margin: 5px 0;"><strong>Alias:</strong> Alanpe29</p>
-            <p style="margin: 5px 0;"><strong>Nombre:</strong> Alan Nicolas Perez</p>
+        <div style="background: #111; padding: 15px; border-radius: 10px; text-align: left; border-left: 4px solid var(--mp-blue);">
+            <p style="margin: 0; font-size: 14px;"><strong>Mercado Pago</strong></p>
+            <p style="margin: 5px 0; font-size: 13px;">Alias: <strong>Alanpe29</strong></p>
+            <p style="margin: 5px 0; font-size: 13px;">Nombre: Alan Nicolas Perez</p>
         </div>
-
-        <p style="font-size: 11px; margin-top: 10px; color: #888;">Realizá la transferencia y enviá el comprobante para recibir tu cuenta.</p>
 
         <button class="btn-whatsapp" onclick="sendOrder()">ENVIAR COMPROBANTE</button>
         <button class="btn-back" onclick="closeAll()">CANCELAR</button>
+    </div>
+
+    <!-- MODAL GUÍA -->
+    <div id="modal-guide" class="modal">
+        <h2 id="guide-title" style="color: var(--ps-purple);">GUÍA DE ACTIVACIÓN</h2>
+        <div id="guide-content" class="guide-text">
+            <!-- El contenido cambia por JS -->
+        </div>
+        <button class="btn-back" onclick="closeGuide()">ENTENDIDO, VOLVER</button>
     </div>
 
     <script>
@@ -182,6 +134,27 @@
         let pricePrimaria = 0;
         let selectedConsole = "";
         let selectedType = "";
+
+        const guidePS4 = `
+            <strong>Pasos para activar PS4 Primario:</strong><br><br>
+            1. Encender la consola y crear <b>usuario nuevo</b>.<br>
+            2. Ingresar correo y contraseña respetando mayúsculas/minúsculas.<br>
+            3. Activar como <b>PS4 Principal</b> e ingresar al usuario.<br>
+            4. Dirigirse a biblioteca y descargar el juego correspondiente.<br>
+            5. <b>Enviar fotografía del juego descargando (OBLIGATORIO)</b>.<br>
+            <i>(Caso contrario, se invalida la garantía)</i>.<br>
+            6. Ingresar a su perfil privado y verificar la descarga.<br><br>
+            <div class="norms">
+                <strong>🚫 NORMAS ESTRICTAS:</strong><br>
+                • Jamás compartir el perfil a otra PS4.<br>
+                • No volver a ingresar en la cuenta.<br>
+                • No cambiar contraseña, correo o ID online.<br>
+                • <b>CERRAR SESIÓN</b> tras poner a descargar.<br>
+                • No eliminar el perfil bajo ningún caso.<br><br>
+                <small>Infligir las normas conlleva el bloqueo sin devolución.</small>
+            </div><br>
+            * Muchísimas gracias por su compra.
+        `;
 
         function openStep1(name, pPrimaria) {
             currentGame = name; pricePrimaria = pPrimaria;
@@ -202,24 +175,32 @@
             selectedType = type;
             document.getElementById('modal-step2').style.display = 'none';
             document.getElementById('modal-checkout').style.display = 'block';
-            document.getElementById('summary-text').innerHTML = `Has seleccionado:<br><strong>${currentGame} (${type})</strong> para <strong>${selectedConsole}</strong><br>Total: $${pricePrimaria.toLocaleString()}`;
+        }
+
+        function openGuide() {
+            document.getElementById('modal-checkout').style.display = 'none';
+            document.getElementById('modal-guide').style.display = 'block';
+            if(selectedConsole === 'PS4') {
+                document.getElementById('guide-title').innerText = "GUÍA PS4 PRIMARIA";
+                document.getElementById('guide-content').innerHTML = guidePS4;
+            } else {
+                document.getElementById('guide-title').innerText = "GUÍA PS5";
+                document.getElementById('guide-content').innerHTML = "PRÓXIMAMENTE: Pasos para PS5...";
+            }
+        }
+
+        function closeGuide() {
+            document.getElementById('modal-guide').style.display = 'none';
+            document.getElementById('modal-checkout').style.display = 'block';
         }
 
         function sendOrder() {
-            const msg = `Hola Alan! Ya realicé el pago por el juego: ${currentGame}. \n\nConsola: ${selectedConsole}\nVersión: ${selectedType}\nMonto:$${pricePrimaria.toLocaleString()}\n\nAdjunto el comprobante.`;
-            const url = `https://wa.me/5493782518960?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
+            const msg = `Hola Alan! Ya pagué ${currentGame} (${selectedType}) para ${selectedConsole}. \n\nMonto: $${pricePrimaria.toLocaleString()}\nAlias: Alanpe29\n\nEnvío comprobante.`;
+            window.open(`https://wa.me/5493782518960?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function backToStep1() {
-            document.getElementById('modal-step2').style.display = 'none';
-            document.getElementById('modal-step1').style.display = 'block';
-        }
-
-        function closeAll() {
-            document.getElementById('overlay').style.display = 'none';
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-        }
+        function backToStep1() { document.getElementById('modal-step2').style.display = 'none'; document.getElementById('modal-step1').style.display = 'block'; }
+        function closeAll() { document.getElementById('overlay').style.display = 'none'; document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
     </script>
 </body>
 </html>
