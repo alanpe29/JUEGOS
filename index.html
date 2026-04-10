@@ -3,268 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS Store - Digital Games</title>
+    <title>ALN FLUX STORE GAMES - PS4/PS5 Digitales</title>
     <style>
         :root {
             --ps-blue: #003087;
             --ps-light-blue: #0070d1;
-            --dark-bg: #0a0a0a;
-            --card-bg: #1a1a1a;
+            --ps-purple: #9c27b0;
+            --ps-dark-bg: #040810;
+            --card-bg: #12161e;
+            --gold: #f5c518;
+            --aln-accent: #ff4081; /* Un color de acento extra */
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: radial-gradient(circle at top, #00439c 0%, #0a0a0a 100%);
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            background-color: var(--ps-dark-bg);
             color: white;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* TÍTULO ANIMADO - ESPECTACULAR */
         header {
             text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--ps-light-blue);
-            margin-bottom: 30px;
+            padding: 30px 0;
+            border-bottom: 2px solid rgba(0,112,209,0.3);
+            margin-bottom: 40px;
         }
 
+        .animated-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #0070d1, #ff4081, #9c27b0, #0070d1);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: moveGradient 5s linear infinite;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 0 10px rgba(0, 112, 209, 0.6));
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* EFECTO DE RESPLANDOR DE FONDO MOVIÉNDOSE */
+        .page-spotlight {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 10%, rgba(0,112,209,0.2) 0%, rgba(4,8,16,0) 60%);
+            transition: background 0.3s ease;
+        }
+
+        /* PARTÍCULAS SUTILES DE FONDO (SIN IMÁGENES) */
+        .particles-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none; z-index: -1;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 1px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 1px);
+            background-size: 50px 50px, 30px 30px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.2;
+            animation: moveParticles 20s linear infinite;
+        }
+
+        @keyframes moveParticles {
+            0% { background-position: 0 0, 10px 10px; }
+            100% { background-position: 50px 100px, 40px 110px; }
+        }
+
+        /* GRIDS Y CARDS MEJORADAS */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .game-card-small {
+        .game-card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             transition: 0.3s;
             border: 2px solid transparent;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
         }
 
-        .game-card-small:hover {
-            transform: scale(1.05);
+        .game-card:hover {
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--ps-light-blue);
+            box-shadow: 0 0 30px rgba(0, 112, 209, 0.7);
         }
 
-        .game-card-small img {
+        .game-card img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
             display: block;
         }
 
-        .game-title { padding: 10px; font-size: 14px; font-weight: bold; }
+        .game-title { padding: 15px; font-size: 16px; font-weight: 700; color: #fff; }
 
-        /* Modales */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 999;
+        /* BOTÓN DE GARANTÍA FLOTANTE (ESTILO "ALN") */
+        .btn-warranty {
+            position: fixed; bottom: 25px; right: 25px;
+            background: linear-gradient(45deg, var(--aln-accent), var(--ps-purple));
+            color: black;
+            border: none; padding: 15px 25px; border-radius: 50px;
+            font-weight: 900; cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+            z-index: 100; display: flex; align-items: center; gap: 10px;
+            transition: 0.3s; text-transform: uppercase;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: #111;
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid var(--ps-light-blue);
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
+        .btn-warranty:hover { transform: scale(1.1) rotate(-3deg); box-shadow: 0 0 30px rgba(255, 64, 129, 0.8); }
 
-        .step-title { color: var(--ps-light-blue); margin-bottom: 20px; font-size: 18px; font-weight: bold; }
+        /* MODALES ACTUALIZADOS */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 999; }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #080808; padding: 30px; border-radius: 18px; border: 2px solid rgba(0,112,209,0.5); z-index: 1000; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 0 100px rgba(0,112,209,0.3); }
 
-        .option-btn {
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            padding: 15px;
-            margin: 10px 0;
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .modal-title { color: var(--ps-light-blue); margin-top: 0; font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;}
 
-        .option-btn:hover:not(:disabled) { background: var(--ps-light-blue); }
-        .option-btn:disabled { opacity: 0.5; cursor: not-allowed; border-color: #e74c3c; }
+        .option-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 18px; margin: 12px 0; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; font-size: 16px; }
+        .option-btn:hover:not(:disabled) { background: var(--ps-light-blue); border-color: var(--ps-light-blue); box-shadow: 0 0 15px rgba(0,112,209,0.5); }
+        .btn-no-stock { background: rgba(231, 76, 60, 0.05); border: 1px dashed #e74c3c; color: #e74c3c; cursor: pointer; }
+        .btn-no-stock:hover { background: rgba(231, 76, 60, 0.15); }
 
-        .price { color: #2ecc71; font-size: 18px; }
-        .no-stock { color: #e74c3c; font-size: 12px; }
+        .price { color: #2ecc71; font-size: 20px; }
+        .btn-back { background: none; border: 1px solid #444; color: #aaa; margin-top: 20px; padding: 10px; width: 100%; cursor: pointer; border-radius: 6px; }
 
-        .btn-back {
-            background: none;
-            border: 1px solid #666;
-            color: #aaa;
-            margin-top: 15px;
-            padding: 8px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        /* Sección Diferencias */
-        .info-link {
-            display: block;
-            margin-top: 15px;
-            color: var(--ps-light-blue);
-            font-size: 13px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 13px;
-            text-align: left;
-        }
-
-        .info-table th { color: var(--ps-light-blue); padding: 8px; border-bottom: 1px solid #333; }
-        .info-table td { padding: 8px; border-bottom: 1px solid #222; }
-
+        .ln-flux-signature { text-align: center; color: #333; font-size: 10px; margin-top: 50px; font-weight: bold; }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>
-    <h1>PLAYSTATION DIGITAL STORE</h1>
-</header>
+    <div class="page-spotlight"></div>
+    <div class="particles-overlay"></div>
 
-<div class="games-grid">
-    <div class="game-card-small" onclick="openStep1('FC 26', 35000)">
-        <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000091347/a4ce113ce08d7c7a94e50dc5104ea74a90fcb3c7d6b465fb8a1524b3df012e09" alt="FC 26">
-        <div class="game-title">EA SPORTS FC 26</div>
+    <header>
+        <h1 class="animated-title">ALN FLUX STORE GAMES</h1>
+    </header>
+
+    <button class="btn-warranty" onclick="openWarranty()">🛡️ Garantía Premium</button>
+
+    <div class="games-grid">
+        <div class="game-card" onclick="openStep1('EA SPORTS FC 26', 35000)">
+            <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000091347/a4ce113ce08d7c7a94e50dc5104ea74a90fcb3c7d6b465fb8a1524b3df012e09" alt="FC 26">
+            <div class="game-title">EA SPORTS FC 26</div>
+        </div>
+
+        <div class="game-card" onclick="openStep1('Resident Evil 2 Remake', 15000)">
+            <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png" alt="RE2 Remake">
+            <div class="game-title">RESIDENT EVIL 2 REMAKE</div>
+        </div>
     </div>
 
-    <div class="game-card-small" onclick="openStep1('Resident Evil 2', 15000)">
-        <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png" alt="RE2 Remake">
-        <div class="game-title">RESIDENT EVIL 2 REMAKE</div>
+    <div class="ln-flux-signature">© ALN FLUX STORE GAMES. Powered by Quantum Flux Engines.</div>
+
+    <div id="overlay" class="overlay" onclick="closeAll()"></div>
+
+    <div id="modal-step1" class="modal">
+        <div class="modal-title" id="title-s1">Juego</div>
+        <p style="margin-bottom: 25px;">Selecciona tu plataforma:</p>
+        <button class="option-btn" onclick="openStep2('PlayStation 4')">PLAYSTATION 4</button>
+        <button class="option-btn" onclick="openStep2('PlayStation 5')">PLAYSTATION 5</button>
+        <button class="btn-back" onclick="closeAll()">CERRAR</button>
     </div>
-</div>
 
-<div id="overlay" class="overlay" onclick="closeAll()"></div>
+    <div id="modal-step2" class="modal">
+        <div class="modal-title" id="title-s2">Tipo de Cuenta</div>
+        <p id="selected-console-text" style="font-size: 13px; color: #aaa; margin-top: 0;"></p>
+        
+        <button class="option-btn" onclick="buyWhatsApp('Primaria')">
+            <span>Primaria</span>
+            <span class="price" id="txt-primaria"></span>
+        </button>
+        
+        <button class="option-btn btn-no-stock" onclick="buyWhatsApp('Secundaria (Solicitar)')">
+            <span>Secundaria</span>
+            <span>SOLICITAR</span>
+        </button>
+        <button class="btn-back" onclick="backToStep1()">VOLVER</button>
+    </div>
 
-<!-- PASO 1: CONSOLA -->
-<div id="modal-step1" class="modal">
-    <div class="step-title" id="title-s1">Juego</div>
-    <p>Selecciona tu consola:</p>
-    <button class="option-btn" onclick="openStep2('PS4')">PLAYSTATION 4</button>
-    <button class="option-btn" onclick="openStep2('PS5')">PLAYSTATION 5</button>
-    <button class="btn-back" onclick="closeAll()">CANCELAR</button>
-</div>
+    <div id="modal-warranty" class="modal">
+        <div class="modal-title" style="color: var(--aln-accent);">Premium Warranty</div>
+        <div style="text-align: left; font-size: 14px; line-height: 1.6; color: #ccc;">
+            <p>✅ **Anti-Revoke:** Tu juego nunca se convertirá en un candado.</p>
+            <p>✅ **Garantía Extendida:** Soporte técnico dedicado los 365 días.</p>
+            <p>✅ **Originales:** Descargas oficiales desde la PlayStation Network.</p>
+        </div>
+        <button class="btn-back" onclick="closeAll()">ENTENDIDO</button>
+    </div>
 
-<!-- PASO 2: TIPO DE CUENTA -->
-<div id="modal-step2" class="modal">
-    <div class="step-title" id="title-s2">Tipo de Cuenta</div>
-    <p id="selected-console-text" style="font-size: 12px; color: #aaa; margin-bottom: 5px;"></p>
-    
-    <button class="option-btn">
-        <span>Primaria</span>
-        <span class="price" id="txt-primaria"></span>
-    </button>
-    
-    <button class="option-btn" disabled>
-        <span>Secundaria</span>
-        <span class="no-stock">SIN STOCK</span>
-    </button>
+    <script>
+        let currentGame = "";
+        let pricePrimaria = 0;
+        let selectedConsole = "";
 
-    <span class="info-link" onclick="openInfo()">¿Cuál es la diferencia?</span>
+        function openStep1(name, pPrimaria) {
+            currentGame = name;
+            pricePrimaria = pPrimaria;
+            document.getElementById('title-s1').innerText = name;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal-step1').style.display = 'block';
+        }
 
-    <button class="btn-back" onclick="backToStep1()">VOLVER</button>
-</div>
+        function openStep2(consoleName) {
+            selectedConsole = consoleName;
+            document.getElementById('modal-step1').style.display = 'none';
+            document.getElementById('modal-step2').style.display = 'block';
+            document.getElementById('title-s2').innerText = currentGame;
+            document.getElementById('selected-console-text').innerText = "Versión: " + consoleName;
+            document.getElementById('txt-primaria').innerText = "$" + pricePrimaria.toLocaleString();
+        }
 
-<!-- MODAL EXPLICACIÓN -->
-<div id="modal-info" class="modal" style="max-width: 500px;">
-    <div class="step-title">PRIMARIA VS SECUNDARIA</div>
-    <table class="info-table">
-        <tr>
-            <th>Característica</th>
-            <th>Primaria</th>
-            <th>Secundaria</th>
-        </tr>
-        <tr>
-            <td>¿Jugás con tu usuario?</td>
-            <td>✅ Sí</td>
-            <td>❌ No (usás el nuestro)</td>
-        </tr>
-        <tr>
-            <td>¿Sumás Trofeos?</td>
-            <td>✅ Sí</td>
-            <td>❌ No</td>
-        </tr>
-        <tr>
-            <td>¿Necesitás Internet?</td>
-            <td>❌ Solo para bajar</td>
-            <td>✅ Sí, siempre</td>
-        </tr>
-        <tr>
-            <td>Precio</td>
-            <td>Más alto</td>
-            <td>Más económico</td>
-        </tr>
-    </table>
-    <button class="btn-back" onclick="closeInfo()">ENTENDIDO</button>
-</div>
+        function buyWhatsApp(tipo) {
+            // Reemplaza TUNUMEROAQUI por tu número (solo números, sin el + o el 00)
+            const num = "TUNUMEROAQUI"; 
+            const msg = `Holas! Me interesa el ${currentGame} (${tipo}) para ${selectedConsole}.`;
+            const url = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
 
-<script>
-    let currentGame = "";
-    let pricePrimaria = 0;
+        function openWarranty() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal-warranty').style.display = 'block';
+        }
 
-    function openStep1(name, pPrimaria) {
-        currentGame = name;
-        pricePrimaria = pPrimaria;
-        document.getElementById('title-s1').innerText = name;
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('modal-step1').style.display = 'block';
-    }
+        function backToStep1() {
+            document.getElementById('modal-step2').style.display = 'none';
+            document.getElementById('modal-step1').style.display = 'block';
+        }
 
-    function openStep2(consoleName) {
-        document.getElementById('modal-step1').style.display = 'none';
-        document.getElementById('modal-step2').style.display = 'block';
-        document.getElementById('title-s2').innerText = currentGame;
-        document.getElementById('selected-console-text').innerText = "Versión seleccionada: " + consoleName;
-        document.getElementById('txt-primaria').innerText = "$" + pricePrimaria.toLocaleString();
-    }
-
-    function openInfo() {
-        document.getElementById('modal-step2').style.display = 'none';
-        document.getElementById('modal-info').style.display = 'block';
-    }
-
-    function closeInfo() {
-        document.getElementById('modal-info').style.display = 'none';
-        document.getElementById('modal-step2').style.display = 'block';
-    }
-
-    function backToStep1() {
-        document.getElementById('modal-step2').style.display = 'none';
-        document.getElementById('modal-step1').style.display = 'block';
-    }
-
-    function closeAll() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('modal-step1').style.display = 'none';
-        document.getElementById('modal-step2').style.display = 'none';
-        document.getElementById('modal-info').style.display = 'none';
-    }
-</script>
-
+        function closeAll() {
+            document.getElementById('overlay').style.display = 'none';
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+    </script>
 </body>
 </html>
