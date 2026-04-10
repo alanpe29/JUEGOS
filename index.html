@@ -58,18 +58,14 @@
             display: block;
         }
 
-        .game-title {
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-        }
+        .game-title { padding: 10px; font-size: 14px; font-weight: bold; }
 
-        /* Modales y Overlays */
+        /* Modales */
         .overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 999;
         }
 
@@ -83,11 +79,12 @@
             border-radius: 15px;
             border: 2px solid var(--ps-light-blue);
             z-index: 1000;
-            width: 320px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
         }
 
-        .step-title { color: var(--ps-light-blue); margin-bottom: 20px; font-size: 18px; }
+        .step-title { color: var(--ps-light-blue); margin-bottom: 20px; font-size: 18px; font-weight: bold; }
 
         .option-btn {
             background: #222;
@@ -102,13 +99,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
         }
 
         .option-btn:hover:not(:disabled) { background: var(--ps-light-blue); }
         .option-btn:disabled { opacity: 0.5; cursor: not-allowed; border-color: #e74c3c; }
 
-        .price { color: #2ecc71; }
+        .price { color: #2ecc71; font-size: 18px; }
         .no-stock { color: #e74c3c; font-size: 12px; }
 
         .btn-back {
@@ -121,6 +117,28 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
+        /* Sección Diferencias */
+        .info-link {
+            display: block;
+            margin-top: 15px;
+            color: var(--ps-light-blue);
+            font-size: 13px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .info-table th { color: var(--ps-light-blue); padding: 8px; border-bottom: 1px solid #333; }
+        .info-table td { padding: 8px; border-bottom: 1px solid #222; }
+
     </style>
 </head>
 <body>
@@ -130,14 +148,12 @@
 </header>
 
 <div class="games-grid">
-    <!-- EA SPORTS FC 26 -->
-    <div class="game-card-small" onclick="openStep1('FC 26', 35000, 0)">
+    <div class="game-card-small" onclick="openStep1('FC 26', 35000)">
         <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/store/software/switch/70010000091347/a4ce113ce08d7c7a94e50dc5104ea74a90fcb3c7d6b465fb8a1524b3df012e09" alt="FC 26">
         <div class="game-title">EA SPORTS FC 26</div>
     </div>
 
-    <!-- RESIDENT EVIL 2 REMAKE -->
-    <div class="game-card-small" onclick="openStep1('Resident Evil 2', 15000, 0)">
+    <div class="game-card-small" onclick="openStep1('Resident Evil 2', 15000)">
         <img src="https://image.api.playstation.com/vulcan/ap/rnd/202206/0204/uDFoGvnMTTCLVmTwjj0njGWC.png" alt="RE2 Remake">
         <div class="game-title">RESIDENT EVIL 2 REMAKE</div>
     </div>
@@ -145,7 +161,7 @@
 
 <div id="overlay" class="overlay" onclick="closeAll()"></div>
 
-<!-- PASO 1: SELECCIONAR CONSOLA -->
+<!-- PASO 1: CONSOLA -->
 <div id="modal-step1" class="modal">
     <div class="step-title" id="title-s1">Juego</div>
     <p>Selecciona tu consola:</p>
@@ -154,22 +170,57 @@
     <button class="btn-back" onclick="closeAll()">CANCELAR</button>
 </div>
 
-<!-- PASO 2: SELECCIONAR CUENTA -->
+<!-- PASO 2: TIPO DE CUENTA -->
 <div id="modal-step2" class="modal">
     <div class="step-title" id="title-s2">Tipo de Cuenta</div>
-    <p id="selected-console-text" style="font-size: 12px; color: #aaa;"></p>
+    <p id="selected-console-text" style="font-size: 12px; color: #aaa; margin-bottom: 5px;"></p>
     
-    <button class="option-btn" id="btn-primaria">
+    <button class="option-btn">
         <span>Primaria</span>
         <span class="price" id="txt-primaria"></span>
     </button>
     
-    <button class="option-btn" id="btn-secundaria" disabled>
+    <button class="option-btn" disabled>
         <span>Secundaria</span>
         <span class="no-stock">SIN STOCK</span>
     </button>
 
+    <span class="info-link" onclick="openInfo()">¿Cuál es la diferencia?</span>
+
     <button class="btn-back" onclick="backToStep1()">VOLVER</button>
+</div>
+
+<!-- MODAL EXPLICACIÓN -->
+<div id="modal-info" class="modal" style="max-width: 500px;">
+    <div class="step-title">PRIMARIA VS SECUNDARIA</div>
+    <table class="info-table">
+        <tr>
+            <th>Característica</th>
+            <th>Primaria</th>
+            <th>Secundaria</th>
+        </tr>
+        <tr>
+            <td>¿Jugás con tu usuario?</td>
+            <td>✅ Sí</td>
+            <td>❌ No (usás el nuestro)</td>
+        </tr>
+        <tr>
+            <td>¿Sumás Trofeos?</td>
+            <td>✅ Sí</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>¿Necesitás Internet?</td>
+            <td>❌ Solo para bajar</td>
+            <td>✅ Sí, siempre</td>
+        </tr>
+        <tr>
+            <td>Precio</td>
+            <td>Más alto</td>
+            <td>Más económico</td>
+        </tr>
+    </table>
+    <button class="btn-back" onclick="closeInfo()">ENTENDIDO</button>
 </div>
 
 <script>
@@ -188,8 +239,18 @@
         document.getElementById('modal-step1').style.display = 'none';
         document.getElementById('modal-step2').style.display = 'block';
         document.getElementById('title-s2').innerText = currentGame;
-        document.getElementById('selected-console-text').innerText = "Versión: " + consoleName;
+        document.getElementById('selected-console-text').innerText = "Versión seleccionada: " + consoleName;
         document.getElementById('txt-primaria').innerText = "$" + pricePrimaria.toLocaleString();
+    }
+
+    function openInfo() {
+        document.getElementById('modal-step2').style.display = 'none';
+        document.getElementById('modal-info').style.display = 'block';
+    }
+
+    function closeInfo() {
+        document.getElementById('modal-info').style.display = 'none';
+        document.getElementById('modal-step2').style.display = 'block';
     }
 
     function backToStep1() {
@@ -201,6 +262,7 @@
         document.getElementById('overlay').style.display = 'none';
         document.getElementById('modal-step1').style.display = 'none';
         document.getElementById('modal-step2').style.display = 'none';
+        document.getElementById('modal-info').style.display = 'none';
     }
 </script>
 
